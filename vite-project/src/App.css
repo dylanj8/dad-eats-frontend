@@ -3,8 +3,9 @@
 html,
 body {
   height: 100%;
-
+  /* overflow-x: hidden; */
   margin: 0 auto;
+  outline: solid 1px red;
 }
 
 * {
@@ -15,10 +16,6 @@ body {
 
   font-family: "Kanit", sans-serif;
   box-sizing: border-box;
-}
-
-.ordering-wrapper {
-  min-width: 100%;
 }
 
 header {
@@ -61,9 +58,13 @@ header a:hover {
 }
 
 .orders {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  display: grid;
+  /* have to fix these two properties, rendering empty grid spaces */
+  grid-auto-flow: column;
+  margin-left: 20px;
+  margin-right: 20px;
+  /* grid-template-columns: repeat(6, 1fr); */
+  /* margin-left: 30px; */
 }
 
 .card {
@@ -214,9 +215,28 @@ header a:hover {
   background: black;
 }
 
+.burg-btn {
+  display: none;
+}
+
 @media only screen and (max-width: 768px) {
-  header nav ul li {
+  .hide-btn {
     display: none;
+  }
+  .burg-btn {
+    display: inline;
+    cursor: pointer;
+  }
+
+  .orders {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .orders {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
@@ -279,4 +299,16 @@ header a:hover {
 .menu-btn:hover {
   color: #e7e7e7;
   background: black;
+}
+
+.modal {
+  position: absolute;
+  height: 100vw;
+  width: 100vw;
+  z-index: 9999;
+  background-color: green;
+}
+
+.modal-btn {
+  text-decoration: none;
 }

@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { OrderContext } from "../context/Ordercontext";
 import { UserContext } from "../context/Usercontext";
+import { FaHamburger } from "react-icons/fa";
+import { Modal } from "../components/Modal";
 
 const Ordering = () => {
   const [readmore, setReadMore] = useState(false);
@@ -12,6 +14,7 @@ const Ordering = () => {
   const { order, setOrder } = useContext(OrderContext);
   const { authedUser, setAuthedUser } = useContext(UserContext);
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
 
   const logoutFnc = () => {
     localStorage.removeItem("token");
@@ -19,6 +22,10 @@ const Ordering = () => {
     setAuthedUser(null);
     navigate("/", { replace: true });
     window.location.reload(); // force refresh the page
+  };
+
+  const setModal = () => {
+    setShowModal(!showModal);
   };
 
   const readMore = (id) => {
@@ -106,14 +113,14 @@ const Ordering = () => {
         <h1 id="nav-title">Paul Eats</h1>
         <nav>
           <ul>
-            <li>
+            <li className="hide-btn">
               <Link to="/Orders">Order</Link>
             </li>
-            <li>
+            <li className="hide-btn">
               <Link to="/PreviousOrders">Previous orders</Link>
             </li>
 
-            <li>
+            <li className="hide-btn">
               {authedUser ? (
                 <button onClick={logoutFnc} className="logout-btn">
                   Logout
@@ -122,10 +129,16 @@ const Ordering = () => {
                 <Link to="/Login" />
               )}
             </li>
+            <li className="burg-btn">
+              {" "}
+              <FaHamburger onClick={setModal} />
+            </li>
           </ul>
         </nav>
       </header>
+
       <div className="ordering-title">
+        {showModal && <Modal logoutFnc={logoutFnc} className="modal" />}
         <h1>Pick upto 2 main meals</h1>
       </div>
       <div className="orders">
