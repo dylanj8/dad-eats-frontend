@@ -6,6 +6,8 @@ import { OrderContext } from "../context/Ordercontext";
 import { UserContext } from "../context/Usercontext";
 import { FaHamburger } from "react-icons/fa";
 import { Modal } from "../components/Modal";
+import { menuarr } from "../menu/menu";
+import { sidesmenu } from "../menu/sidesmenu";
 
 const Ordering = () => {
   const [readmore, setReadMore] = useState(false);
@@ -55,58 +57,6 @@ const Ordering = () => {
     }
   };
 
-  const mainMenu = [
-    {
-      id: 1,
-      name: "steak meal",
-      img: "https://natashaskitchen.com/wp-content/uploads/2020/03/Pan-Seared-Steak-4.jpg",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-    {
-      id: 2,
-      name: "steak meal",
-      img: "https://natashaskitchen.com/wp-content/uploads/2020/03/Pan-Seared-Steak-4.jpg",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-    {
-      id: 3,
-      name: "steak meal",
-      img: "https://natashaskitchen.com/wp-content/uploads/2020/03/Pan-Seared-Steak-4.jpg",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-    {
-      id: 4,
-      name: "steak meal",
-      img: "https://natashaskitchen.com/wp-content/uploads/2020/03/Pan-Seared-Steak-4.jpg",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-    {
-      id: 5,
-      name: "steak meal",
-      img: "https://natashaskitchen.com/wp-content/uploads/2020/03/Pan-Seared-Steak-4.jpg",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-    {
-      id: 6,
-      name: "steak meal",
-      img: "https://natashaskitchen.com/wp-content/uploads/2020/03/Pan-Seared-Steak-4.jpg",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-    {
-      id: 7,
-      name: "steak meal",
-      img: "https://natashaskitchen.com/wp-content/uploads/2020/03/Pan-Seared-Steak-4.jpg",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-  ];
-
   return (
     <div className="ordering-wrapper">
       <header>
@@ -139,10 +89,10 @@ const Ordering = () => {
 
       <div className="ordering-title">
         {showModal && <Modal logoutFnc={logoutFnc} className="modal" />}
-        <h1>Pick upto 2 main meals</h1>
+        <h1>Main Meals (Choose up to two)</h1>
       </div>
       <div className="orders">
-        {mainMenu.map((meals, idx) => {
+        {menuarr.map((meals, idx) => {
           return (
             <div key={idx} className="card">
               <h2>{meals.name}</h2>
@@ -165,10 +115,10 @@ const Ordering = () => {
         })}
       </div>
       <div className="ordering-title">
-        <h1>Pick upto 2 light meals</h1>
+        <h1>Sides (Choose up to two)</h1>
       </div>
       <div className="orders">
-        {mainMenu.map((meals, idx) => {
+        {sidesmenu.map((meals, idx) => {
           return (
             <div key={idx} className="card">
               <h2>{meals.name}</h2>

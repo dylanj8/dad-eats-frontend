@@ -6,6 +6,8 @@ body {
   /* overflow-x: hidden; */
   margin: 0 auto;
   outline: solid 1px red;
+  box-sizing: border-box; /* include border in width/height calculation */
+  overflow-x: hidden; /* hide content that extends beyond viewport width */
 }
 
 * {
@@ -20,7 +22,8 @@ body {
 
 header {
   display: flex;
-  width: 100%;
+
+  width: 100vw;
   justify-content: flex-end;
   align-items: center;
   padding: 20px 50px;
@@ -51,20 +54,24 @@ header a:hover {
 }
 
 .ordering-title {
+  font-size: 3rem;
   text-align: center;
   height: 100px;
   width: 100%;
   line-height: 100px;
 }
 
+.ordering-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 .orders {
   display: grid;
-  /* have to fix these two properties, rendering empty grid spaces */
-  grid-auto-flow: column;
+
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   margin-left: 20px;
   margin-right: 20px;
-  /* grid-template-columns: repeat(6, 1fr); */
-  /* margin-left: 30px; */
 }
 
 .card {
@@ -80,9 +87,11 @@ header a:hover {
   display: block;
   margin: 0 auto;
   width: 100%;
-  height: auto;
+  height: 200px;
   border-radius: 5px;
   margin-bottom: 20px;
+  object-fit: cover;
+  object-position: center;
 }
 
 .card h2 {
@@ -231,6 +240,12 @@ header a:hover {
   .orders {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 865px) {
+  .ordering-title {
+    font-size: 2rem;
   }
 }
 
