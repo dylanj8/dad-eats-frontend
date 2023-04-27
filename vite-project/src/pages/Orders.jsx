@@ -4,12 +4,39 @@ import { OrderContext } from "../context/Ordercontext";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const Orders = () => {
-  const { order } = useContext(OrderContext);
+  const { order, setOrder } = useContext(OrderContext);
   const navigate = useNavigate();
-  console.log(order);
+
+  const removeItem = (meal) => {
+    const inOrder = order.find((x) => x.id === meal.id);
+    console.log(inOrder);
+
+    if (inOrder.qty == 2) {
+      setOrder(
+        order.map((x) => {
+          return x.id == inOrder.id ? { ...inOrder, qty: inOrder.qty - 1 } : x;
+        })
+      );
+    } else if (inOrder.qty == 1) {
+      const neworder = order.filter((x) => {
+        return x.id !== inOrder.id;
+      });
+
+      setOrder(neworder);
+    }
+  };
 
   const sendOrder = async () => {
     const token = localStorage.getItem("token");
+
+    let stringOrder = [];
+
+    for (let i = 0; i < order.length; i++) {
+      const name = order[i].name;
+      const qty = order[i].qty;
+      stringOrder.push(name);
+      stringOrder.push(qty);
+    }
 
     try {
       const response = await fetch("http://localhost:5000/api/orders", {
@@ -19,7 +46,7 @@ const Orders = () => {
           Authorization: `Bearer ${token}`, // Add the authorization header
         },
         body: JSON.stringify({
-          text: order[0].name,
+          text: stringOrder.toString(),
         }),
       });
       console.log("Request Body: ", JSON.stringify({ text: order[0].name }));
@@ -51,19 +78,26 @@ const Orders = () => {
             <tr>
               <td>Meal</td>
               <td>Qty</td>
+              <td>Remove</td>
             </tr>
           </thead>
           <tbody className="table-body">
-            {order && order.length > 0 ? (
-              order.map((order, index) => (
-                <tr key={index}>
-                  <td>{order.name}</td>
-                  <td>{order.qty}</td>{" "}
-                </tr>
-              ))
-            ) : (
-              <h2>No orders</h2>
-            )}
+            {order && order.length > 0
+              ? order.map((order, index) => (
+                  <tr key={index}>
+                    <td>{order.name}</td>
+                    <td>{order.qty}</td>{" "}
+                    <td>
+                      <button
+                        className="remove-btn"
+                        onClick={() => removeItem(order)}
+                      >
+                        remove
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              : null}
           </tbody>
         </table>
         <div className="btn-div">

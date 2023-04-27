@@ -37,18 +37,15 @@ const Ordering = () => {
 
   const addToOrder = (meal) => {
     const inOrder = order.find((x) => x.id === meal.id);
-    if (order.length > 2) {
+    if (order.length > 3) {
       return;
     }
 
     if (inOrder) {
-      // if (inOrder.qty > 2) {
-      //   return;
-      // }
       setOrder(
         order.map((x) => {
           return inOrder.id === x.id
-            ? { ...inOrder, qty: (inOrder.qty = inOrder.qty + 1) }
+            ? { ...inOrder, qty: (inOrder.qty = 2) }
             : x;
         })
       );
@@ -89,7 +86,7 @@ const Ordering = () => {
 
       <div className="ordering-title">
         {showModal && <Modal logoutFnc={logoutFnc} className="modal" />}
-        <h1>Main Meals (Choose up to two)</h1>
+        <h1>Main Meals </h1>
       </div>
       <div className="orders">
         {menuarr.map((meals, idx) => {
@@ -115,7 +112,7 @@ const Ordering = () => {
         })}
       </div>
       <div className="ordering-title">
-        <h1>Sides (Choose up to two)</h1>
+        <h1>Sides</h1>
       </div>
       <div className="orders">
         {sidesmenu.map((meals, idx) => {

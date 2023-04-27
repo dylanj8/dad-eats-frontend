@@ -36,6 +36,7 @@ const Login = () => {
 
         setAuthedUser(data.name);
         localStorage.setItem("username", data.name); // this is just test code //
+        localStorage.setItem("userid", data._id);
 
         // store JWT token in local storage
         localStorage.setItem("token", data.token);
