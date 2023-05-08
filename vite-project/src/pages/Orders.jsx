@@ -1,7 +1,7 @@
 import React from "react";
 import { useContext } from "react";
 import { OrderContext } from "../context/Ordercontext";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Orders = () => {
   const { order, setOrder } = useContext(OrderContext);
@@ -29,14 +29,14 @@ const Orders = () => {
   const sendOrder = async () => {
     const token = localStorage.getItem("token");
 
-    let stringOrder = [];
+    // let stringOrder = [];
 
-    for (let i = 0; i < order.length; i++) {
-      const name = order[i].name;
-      const qty = order[i].qty;
-      stringOrder.push(name);
-      stringOrder.push(qty);
-    }
+    // for (let i = 0; i < order.length; i++) {
+    //   const name = order[i].name;
+    //   const qty = order[i].qty;
+    //   stringOrder.push(name);
+    //   stringOrder.push(qty);
+    // }
 
     try {
       const response = await fetch("http://localhost:5000/api/orders", {
@@ -45,11 +45,10 @@ const Orders = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Add the authorization header
         },
-        body: JSON.stringify({
-          text: stringOrder.toString(),
-        }),
+
+        body: JSON.stringify({ order }),
       });
-      console.log("Request Body: ", JSON.stringify({ text: order[0].name }));
+      // console.log("Request Body: ", JSON.stringify({ text: order[0].name }));
       console.log("Request Headers: ", JSON.stringify(response.headers));
 
       if (response.ok) {

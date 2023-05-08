@@ -36,6 +36,7 @@ const Ordering = () => {
   };
 
   const addToOrder = (meal) => {
+    const orderDate = new Date();
     const inOrder = order.find((x) => x.id === meal.id);
     if (order.length > 3) {
       return;
@@ -45,12 +46,12 @@ const Ordering = () => {
       setOrder(
         order.map((x) => {
           return inOrder.id === x.id
-            ? { ...inOrder, qty: (inOrder.qty = 2) }
+            ? { ...inOrder, qty: (inOrder.qty = 2), date: orderDate }
             : x;
         })
       );
     } else {
-      setOrder([...order, { ...meal, qty: 1 }]);
+      setOrder([...order, { ...meal, qty: 1, date: orderDate }]);
     }
   };
 
@@ -85,7 +86,14 @@ const Ordering = () => {
       </header>
 
       <div className="ordering-title">
-        {showModal && <Modal logoutFnc={logoutFnc} className="modal" />}
+        {showModal && (
+          <Modal
+            logoutFnc={logoutFnc}
+            className="modal"
+            setModal={setModal}
+            setShowModal={setShowModal}
+          />
+        )}
         <h1>Main Meals </h1>
       </div>
       <div className="orders">

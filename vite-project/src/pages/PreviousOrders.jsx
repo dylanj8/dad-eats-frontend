@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const PreviousOrders = () => {
   const [prevOrders, setPrevOrders] = useState(null);
@@ -30,14 +31,17 @@ const PreviousOrders = () => {
   };
 
   return (
-    <div>
-      <h1>Previous orders</h1>
-      <div>
+    <div className="prev-orders-wrapper">
+      <h1 className="prev-order-heading">Previous orders</h1>
+      <div className="prev-orders">
         {prevOrders?.map((x, index) => {
           return (
-            <div>
+            <div key={index} className="prev-order-div">
+              {console.log(prevOrders)}
+              <div className="order-text"></div>
               <h2>{x.text}</h2>
-              <p>{x.createdAt}</p>
+              <p>{x.qty}</p>
+              {/* <p>{x.createdAt}</p> */}
             </div>
           );
         })}
@@ -45,6 +49,9 @@ const PreviousOrders = () => {
 
       <div>
         <button onClick={getPrevOrders}>previous orders</button>
+        <Link to="/" className="logout-btn">
+          Home
+        </Link>
       </div>
     </div>
   );

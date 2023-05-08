@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FaHamburger } from "react-icons/fa";
 
-export function Modal({ logoutFnc }) {
+export function Modal({ logoutFnc, setModal, setShowModal }) {
   return (
     <>
       <div className="modal">
@@ -18,9 +19,15 @@ export function Modal({ logoutFnc }) {
           </li>
 
           <li className="modal-btn">
-            <button onClick={logoutFnc} className="modal-btn">
+            <button onClick={logoutFnc} className="logout-btn">
               Logout
             </button>
+          </li>
+          <li>
+            <FaHamburger
+              className="burger-icon"
+              onClick={() => setShowModal(!setModal)}
+            />
           </li>
         </ul>
       </div>
