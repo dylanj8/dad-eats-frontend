@@ -35,12 +35,20 @@ const Ordering = () => {
     setReadMore(!readmore);
   };
 
+  const dateConversion = (date) => {
+    console.log(date);
+    let newDate = date.toLocaleString(undefined, {
+      timeZone: "Australia/Sydney",
+    });
+    console.log(newDate);
+    return newDate;
+  };
+
   const addToOrder = (meal) => {
-    const orderDate = new Date();
+    const orderDate = new Date().toLocaleString(undefined, {
+      timeZone: "Australia/Sydney",
+    });
     const inOrder = order.find((x) => x.id === meal.id);
-    if (order.length > 3) {
-      return;
-    }
 
     if (inOrder) {
       setOrder(
@@ -109,7 +117,7 @@ const Ordering = () => {
               </p>
               <div className="meal-btns">
                 <button onClick={() => readMore(idx)} className="read-btn">
-                  {readmore ? "hide" : "read more"}
+                  {readmore & (selectedindex == idx) ? "hide" : "read more"}
                 </button>
                 <button onClick={() => addToOrder(meals)} className="order-btn">
                   order
@@ -135,7 +143,7 @@ const Ordering = () => {
               </p>
               <div className="meal-btns">
                 <button onClick={() => readMore(idx)} className="read-btn">
-                  {readmore ? "hide" : "read more"}
+                  {readmore & (selectedindex == idx) ? "hide" : "read more"}
                 </button>
                 <button onClick={() => addToOrder(meals)} className="order-btn">
                   order

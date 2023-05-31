@@ -54,6 +54,7 @@ const Orders = () => {
       if (response.ok) {
         // login successful
         const data = await response.json();
+        setOrder(null);
         console.log("Order submitted:", data);
 
         // redirect to homepage

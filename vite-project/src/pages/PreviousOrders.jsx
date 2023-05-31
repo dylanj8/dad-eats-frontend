@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const PreviousOrders = () => {
@@ -9,9 +9,7 @@ const PreviousOrders = () => {
 
   console.log(userId);
 
-  const getPrevOrders = async (e) => {
-    e.preventDefault();
-
+  const getPrevOrders = async () => {
     const response = await fetch(
       `http://localhost:5000/api/orders/?userId=${userId}`,
       {
@@ -30,6 +28,10 @@ const PreviousOrders = () => {
     }
   };
 
+  useEffect(() => {
+    getPrevOrders();
+  }, []);
+
   return (
     <div className="prev-orders-wrapper">
       <h1 className="prev-order-heading">Previous orders</h1>
@@ -38,17 +40,22 @@ const PreviousOrders = () => {
           return (
             <div key={index} className="prev-order-div">
               {console.log(prevOrders)}
-              <div className="order-text"></div>
-              <h2>{x.text}</h2>
-              <p>{x.qty}</p>
-              {/* <p>{x.createdAt}</p> */}
+              <div className="order-text">
+                <h2>Order:</h2>
+                <h3>{x.text}</h3>
+                <h2>Qty:</h2>
+                <h3>{x.qty}</h3>
+                <h2>Date ordered:</h2>
+                <p>{x.date}</p>
+
+                {/* <img src={x.img} alt={x.text} className="order-img" /> */}
+              </div>
             </div>
           );
         })}
       </div>
 
-      <div>
-        <button onClick={getPrevOrders}>previous orders</button>
+      <div className="prev-order-btns">
         <Link to="/" className="logout-btn">
           Home
         </Link>
